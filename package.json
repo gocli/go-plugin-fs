@@ -1,0 +1,24 @@
+{
+  "name": "go-plugin-fs",
+  "version": "1.0.0",
+  "description": "Go plugin to work with file system",
+  "main": "plugin.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gocli/go-plugin-fs.git"
+  },
+  "keywords": [
+    "fs",
+    "template",
+    "cli"
+  ],
+  "author": "Stanislav Termosa <termosa.stanislav@gmail.com> (https://github.com/termosa)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gocli/go-plugin-fs/issues"
+  },
+  "homepage": "https://github.com/gocli/go-plugin-fs#readme",
+  "dependencies": {
+    "fs-extra": "^5.0.0"
+  }
+}
