@@ -1,8 +1,27 @@
-# go-plugin-fs
+# go-plugin-fs [![npm](https://img.shields.io/npm/v/go-plugin-fs.svg?style=flat-square)](https://www.npmjs.com/package/go-plugin-fs) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-green.svg?style=flat-square)](https://github.com/gocli/go-plugin-fs) [![Travis](https://img.shields.io/travis/gocli/go-plugin-fs.svg?style=flat-square)](https://travis-ci.org/gocli/go-plugin-fs)
 
-[Go](https://www.npmjs.com/package/go) plugin to work with file system
+[Go](https://www.npmjs.com/package/go) plugin to work with file system.
+
+## Table of Contents
+
+- [Usage](#usage)
+  - [Installation](#installation)
+  - [Quick Start](#quick-start)
+  - [API Reference](#api-reference)
+    - [copy](#copy)
+    - [move](#move)
+    - [remove](#remove)
+    - [writeFile](#writefile)
+    - [readFile](#readfile)
+    - [createDir](#createdir)
+- [Examples](#examples)
+  - [Basic usage](#basic-usage)
+  - [Read, process and write file](#read-process-and-write-file)
+- [License](#license)
 
 ## Usage
+
+### Installation
 
 ```bash
 $ npm install go go-plugin-fs
@@ -11,149 +30,101 @@ $ npm install go go-plugin-fs
 ```js
 const go = require('go')
 go.use(require('go-plugin-fs'))
-```
-
-## API
-
-#### Copy files and directories
-
-```js
-/* promise */ go.copy(
-  /* string */ sourcePath,
-  /* string */ destinationPath,
-  /* optional, object */ options,
-  /* optional, function */ callback
-)
 
 // or
 
-go.copySync(
-  /* string */ sourcePath,
-  /* string */ destinationPath,
-  /* optional, object */ options
-)
+import { FsPlugin } from 'go-plugin-fs'
+go.use(FsPlugin)
 ```
 
-Read more details at [fs-extra#copy](https://github.com/jprichardson/node-fs-extra/blob/HEAD/docs/copy.md)
+### Quick Start
 
-#### Move files and directories
+FS Plugin is based on [fs-extra](https://www.npmjs.com/package/fs-extra) and it basically just exports several of its methods.
+A huge thanks to [@jprichardson](https://github.com/jprichardson) and [@RyanZim](https://github.com/RyanZim) for such a cool tool!
+Original instance of `fs-extra` is stored in `go.fs` and available for your purposes.
+To learn more about this library read the [docs](https://www.npmjs.com/package/fs-extra).
 
 ```js
-/* promise */ go.move(
-  /* string */ sourcePath,
-  /* string */ destinationPath,
-  /* optional, object */ options,
-  /* optional, function */ callback
-)
+const go = require('go')
+go.use(require('go-plugin-fs'))
 
-// or
-
-go.moveSync(
-  /* string */ sourcePath,
-  /* string */ destinationPath,
-  /* optional, object */ options
-)
+go.copy('./path/to/source/file', './path/to/target/file')
 ```
 
-Read more details at [fs-extra#move](https://github.com/jprichardson/node-fs-extra/blob/HEAD/docs/move.md)
+### API Reference
 
-#### Remove files and directories
+#### copy
 
-```js
-/* promise */ go.remove(
-  /* string */ path,
-  /* optional, function */ callback
-)
-
-// or
-
-go.removeSync(
-  /* string */ path
-)
+```
+go.copy( source, target [ , options, callback ]): Promise
+go.copySync( source, target [ , options ])
 ```
 
-Read more details at [fs-extra#remove](https://github.com/jprichardson/node-fs-extra/blob/HEAD/docs/remove.md)
+Read about fs-extra [copy](https://github.com/jprichardson/node-fs-extra/blob/5.0.0/docs/copy.md) and [copySync](https://github.com/jprichardson/node-fs-extra/blob/5.0.0/docs/copy-sync.md).
 
-#### Write file
+#### move
 
-```js
-/* promise */ go.writeFile(
-  /* string */ destinationPath,
-  /* string|buffer */ content,
-  /* optional, object|string */ options,
-  /* optional, function */ callback
-)
-
-// or
-
-go.writeFileSync(
-  /* string */ destinationPath,
-  /* string|buffer */ content,
-  /* optional, object|string */ options
-)
+```
+go.move( source, target [ , options, callback ]): Promise
+go.moveSync( source, target [ , options ])
 ```
 
-Read more details at [fs-extra#outputFile](https://github.com/jprichardson/node-fs-extra/blob/HEAD/docs/outputFile.md)
+Read about fs-extra [move](https://github.com/jprichardson/node-fs-extra/blob/5.0.0/docs/move.md) and [moveSync](https://github.com/jprichardson/node-fs-extra/blob/5.0.0/docs/move-sync.md).
 
-#### Create directory
+#### remove
 
-```js
-/* promise */ go.createDir(
-  /* string */ destinationPath,
-  /* optional, function */ callback
-)
-
-// or
-
-go.createDirSync(
-  /* string */ destinationPath
-)
+```
+go.remove( path [ , callback ]): Promise
+go.removeSync( path )
 ```
 
-Read more details at [fs-extra#ensureDir](https://github.com/jprichardson/node-fs-extra/blob/HEAD/docs/ensureDir.md)
+Read about fs-extra [remove](https://github.com/jprichardson/node-fs-extra/blob/5.0.0/docs/remove.md) and [removeSync](https://github.com/jprichardson/node-fs-extra/blob/5.0.0/docs/remove-sync.md).
 
-#### Read file
+#### writeFile
 
-```js
-/* promise<string: content> */ go.readFile(
-  /* string */ sourcePath,
-  /* optional, object|string */ options,
-  /* optional, function */ callback
-)
-
-// or
-
-/* string: content */ go.readFileSync(
-  /* string */ sourcePath,
-  /* optional, object|string */ options
-)
+```
+go.writeFile( path, data [ , options, callback ]): Promise
+go.writeFileSync( path, data [ , options ])
 ```
 
-Read more details at [fs-extra#ensureDir](https://github.com/jprichardson/node-fs-extra/blob/HEAD/docs/ensureDir.md)
+Read about fs-extra [outputFile](https://github.com/jprichardson/node-fs-extra/blob/5.0.0/docs/outputFile.md) and [outputFileSync](https://github.com/jprichardson/node-fs-extra/blob/5.0.0/docs/outputFile-sync.md).
 
-#### More
+#### readFile
 
-This plugin is based on [fs-extra](https://www.npmjs.com/package/fs-extra) created by [@jprichardson](https://github.com/jprichardson) and [@RyanZim](https://github.com/RyanZim). A huge thanks to these guys for their work!
-Original instance of `fs-extra` is stored in `go.fs` and available for your purposes. To learn more about this library read the [docs](https://www.npmjs.com/package/fs-extra).
+```
+go.readFile( path [ , options, callback ]): Promise
+go.readFileSync( path [ , options ])
+```
+
+Read about NodeJS [readFile](https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback) and [readFileSync](https://nodejs.org/api/fs.html#fs_fs_readfilesync_path_options).
+
+#### createDir
+
+```
+go.createDir( path, data [ , options, callback ]): Promise
+go.createDirSync( path, data [ , options ])
+```
+
+Read about fs-extra [ensureDir](https://github.com/jprichardson/node-fs-extra/blob/5.0.0/docs/ensureDir.md) and [ensureDirSync](https://github.com/jprichardson/node-fs-extra/blob/5.0.0/docs/ensureDir-sync.md).
 
 ## Examples
 
-### Copying boilerplate files
-
-#### create-component.js
+### Basic usage
 
 ```js
-var go = require('go')
-go.use(require('go-plugin-fs'))
+const newComponentName = 'new-component'
+go.copy('./templates/component.js', `./src/components/${newComponentName}.js`)
+```
 
-function createComponent (componentName) {
-  var fileName = componentName
-    .toLowerCase().replace(/[^a-z\d]+/g, '-').replace(/(^-|-$)/g, '')
+### Read, process and write file
 
-  return go.copy('boilerplates/component-file.ext', 'app/components/' + fileName + '.ext')
-}
+```js
+const contributorsPath = './CONTRIBUTORS.md'
+const newContributor = 'Chuck Norris'
 
-module.exports = createComponent
+go.readFile(contributorsPath)
+  .then((content) => `${content}\n - ${newContributor}`)
+  .then((content) => go.writeFile(contributorsPath, content))
 ```
 
 ## License

@@ -1,8 +1,14 @@
 {
   "name": "go-plugin-fs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Go plugin to work with file system",
-  "main": "plugin.js",
+  "main": "dist/bundle.js",
+  "scripts": {
+    "start": "rollup -cw",
+    "test": "standard -v | snazzy",
+    "build": "rollup -c",
+    "prepublishOnly": "npm run test && npm run build"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gocli/go-plugin-fs.git"
@@ -10,7 +16,8 @@
   "keywords": [
     "fs",
     "template",
-    "cli"
+    "cli",
+    "go"
   ],
   "author": "Stanislav Termosa <termosa.stanislav@gmail.com> (https://github.com/termosa)",
   "license": "MIT",
@@ -18,7 +25,14 @@
     "url": "https://github.com/gocli/go-plugin-fs/issues"
   },
   "homepage": "https://github.com/gocli/go-plugin-fs#readme",
+  "devDependencies": {
+    "rollup": "^0.55.3",
+    "rollup-plugin-buble": "^0.18.0",
+    "rollup-plugin-standard": "^1.0.0",
+    "snazzy": "^7.0.0",
+    "standard": "^10.0.3"
+  },
   "dependencies": {
-    "fs-extra": "^5.0.0"
+    "fs-extra": "5.0.0"
   }
 }

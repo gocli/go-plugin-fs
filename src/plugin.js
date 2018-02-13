@@ -1,7 +1,8 @@
-var fs = require('fs-extra')
+import fs from 'fs-extra'
 
-function installFSPlugin (proto) {
+const FsPlugin = (proto) => {
   proto.fs = fs
+
   proto.copy = fs.copy.bind(fs)
   proto.copySync = fs.copySync.bind(fs)
 
@@ -21,4 +22,5 @@ function installFSPlugin (proto) {
   proto.createDirSync = fs.ensureDirSync.bind(fs)
 }
 
-module.exports = { install: installFSPlugin }
+const install = FsPlugin
+export { install, FsPlugin }
